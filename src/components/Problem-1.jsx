@@ -29,11 +29,27 @@ const Problem1 = () => {
     return true;
   });
 
+  const sortedData = filteredData.sort((a, b) => {
+    const statusA = a.status.toLowerCase();
+    const statusB = b.status.toLowerCase();
+
+    if (statusA === "active" && statusB !== "active") {
+      return -1;
+    } else if (statusA !== "active" && statusB === "active") {
+      return 1;
+    } else if (statusA === "completed" && statusB !== "completed") {
+      return -1;
+    } else if (statusA !== "completed" && statusB === "completed") {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <div className="container">
       <div className="row justify-content-center mt-5">
         <h4 className="text-center text-uppercase mb-5">Problem-1</h4>
-        <div className="col-6 ">
+        <div className="col-6">
           <form
             className="row gy-2 gx-3 align-items-center mb-4"
             onSubmit={handleSubmit}
@@ -93,8 +109,7 @@ const Problem1 = () => {
               </button>
             </li>
           </ul>
-          <div className="tab-content"></div>
-          <table className="table table-striped ">
+          <table className="table table-striped">
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -102,7 +117,7 @@ const Problem1 = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((item, index) => (
+              {sortedData.map((item, index) => (
                 <tr key={index}>
                   <td>{item.name}</td>
                   <td>{item.status}</td>
