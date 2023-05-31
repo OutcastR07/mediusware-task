@@ -18,6 +18,17 @@ const Problem1 = () => {
     setStatus("");
   };
 
+  const filteredData = data.filter((item) => {
+    if (show === "all") {
+      return true;
+    } else if (show === "active") {
+      return item.status.toLowerCase() === "active";
+    } else if (show === "completed") {
+      return item.status.toLowerCase() === "completed";
+    }
+    return true;
+  });
+
   return (
     <div className="container">
       <div className="row justify-content-center mt-5">
@@ -91,7 +102,7 @@ const Problem1 = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
+              {filteredData.map((item, index) => (
                 <tr key={index}>
                   <td>{item.name}</td>
                   <td>{item.status}</td>
